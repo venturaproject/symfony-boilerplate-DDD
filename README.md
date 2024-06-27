@@ -9,6 +9,8 @@ It is composed by 3 containers:
 - `nginx`, acting as the webserver.
 - `php`, the PHP-FPM container with the 8.3 version of PHP.
 - `db`, MySQL database container with a MySQL 8.0 image.
+- `rabbitmq`, RabbitMQ container.
+- `redis`, Redis container.
 
 
 
