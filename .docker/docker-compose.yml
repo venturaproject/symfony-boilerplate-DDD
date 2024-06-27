@@ -1,0 +1,79 @@
+services:
+    db:
+        container_name: db
+        image: mysql:latest
+        volumes:
+            - ../.docker/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - 3306:3306
+        networks:
+            - symfony_app
+
+    php:
+        container_name: php
+        build:
+            context: ./php
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ../:/var/www/symfony:cached
+            - symfony_app_var:/var/www/symfony/var
+            - symfony_app_vendor:/var/www/symfony/vendor
+            - ../vendor:/var/www/symfony/vendor
+            - ../var/log:/var/www/symfony/var/log
+        networks:
+            - symfony_app
+
+    nginx:
+        container_name: web
+        build:
+            context: ./nginx
+        volumes:
+            - ../:/var/www/symfony:cached
+            - symfony_app_var:/var/www/symfony/var
+            - symfony_app_vendor:/var/www/symfony/vendor
+        ports:
+            - 80:80
+        networks:
+            - symfony_app
+        env_file:
+            - .env.nginx
+
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - symfony_app
+
+    redis:
+        container_name: redis
+        image: redis:alpine
+        ports:
+            - "6379:6379"
+        networks:
+            - symfony_app
+
+    mailhog:
+        container_name: mailhog
+        image: mailhog/mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        networks:
+            - symfony_app
+
+volumes:
+    symfony_app_var:
+    symfony_app_vendor:
+    db_app:
+
+networks:
+    symfony_app:

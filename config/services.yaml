@@ -1,0 +1,30 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # Domain Layer
+    App\Domain\:
+        resource: '../src/Domain/'
+
+    # Application Layer
+    App\Application\:
+        resource: '../src/Application/'
+
+    # Infrastructure Layer
+    App\Infrastructure\:
+        resource: '../src/Infrastructure/'
+    
+    App\Domain\Repository\BookRepositoryInterface:
+        class: App\Infrastructure\Persistence\Doctrine\Repository\BookRepository
+        arguments: ['@doctrine']
+    
