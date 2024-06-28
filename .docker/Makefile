@@ -1,15 +1,24 @@
+
+ifneq (,$(wildcard ./.env))
+    include .env
+    export $(shell sed 's/=.*//' .env)
+endif
+
+run:
+	@docker-compose build --no-cache
+	@docker-compose -p $(COMPOSE_PROJECT_NAME) up -d
+
 enter-mysql-container:
-	@docker exec -it db bash
+	@docker exec -it $(MYSQL_CONTAINER) bash
 
 enter-php-container:
-	@docker exec -it php bash
+	@docker exec -it $(PHP_CONTAINER) bash
 	
-dump-db:
-	@docker exec db sh -c 'mysqldump -u root -proot symfony > /var/lib/mysql/db_dump.sql'
+install-composer:
+	@docker exec -it $(PHP_CONTAINER) composer install
 
 clear-cache:
-	@docker exec -it php php bin/console cache:clear
+	@docker exec -it $(PHP_CONTAINER) php bin/console cache:clear
 
 info-commands:
-	@docker exec -it php php bin/console list
-
+	@docker exec -it $(PHP_CONTAINER) php bin/console list
