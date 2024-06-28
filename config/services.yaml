@@ -27,4 +27,8 @@ services:
     App\Domain\Repository\BookRepositoryInterface:
         class: App\Infrastructure\Persistence\Doctrine\Repository\BookRepository
         arguments: ['@doctrine']
-    
+
+    App\Infrastructure\Service\OpenWeatherMapService:
+        arguments:
+            $apiKey: '%env(OPEN_WEATHER_MAP_API_KEY)%'
+            $apiUrl: '%env(OPEN_WEATHER_MAP_API_URL)%'
