@@ -1,0 +1,16 @@
+{# templates/weather/view.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Information</title>
+</head>
+<body>
+    <h1>Weather Information for {{ weather.city }} 🌦️</h1>
+    <ul>
+        <li>Minimum Temperature: {{ weather.temp_min }}°C</li>
+        <li>Maximum Temperature: {{ weather.temp_max }}°C</li>
+        <li>Request Time: {{ weather.request_time }}</li>
+    </ul>
+</body>
+</html>

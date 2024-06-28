@@ -30,6 +30,7 @@ class OpenWeatherMapService
         $data = $response->toArray();
 
         return [
+            'city' => $city,
             'temp_min' => $data['main']['temp_min'],
             'temp_max' => $data['main']['temp_max'],
         ];
