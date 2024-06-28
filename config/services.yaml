@@ -32,3 +32,8 @@ services:
         arguments:
             $apiKey: '%env(OPEN_WEATHER_MAP_API_KEY)%'
             $apiUrl: '%env(OPEN_WEATHER_MAP_API_URL)%'
+    
+    App\Infrastructure\Service\EmailService:
+        arguments:
+            $mailer: '@mailer'
+            $testEmail: '%env(TEST_EMAIL)%'
