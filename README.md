@@ -18,6 +18,7 @@ It is composed by 3 containers:
 
  Clone this repo.
  Go inside `./docker` folder and run `docker compose up -d` to start containers.
+ run `make install-composer` or `make enter-php-container` and `composer install`
 
 ## Api Platform
 
