@@ -1,0 +1,35 @@
+# config/packages/easy_admin.yaml
+
+easy_admin:
+    site_name: 'Admin Panel'
+    design:
+        menu:
+            - { entity: 'App\Domain\Entity\Book', label: 'Books' }
+            # Puedes agregar más entidades aquí
+
+    entities:
+        Book:
+            class: App\Domain\Entity\Book
+            label: 'Books'
+            list:
+                fields:
+                    - id
+                    - name
+                    - author
+                    - { property: 'description', type: 'text' }
+            form:
+                fields:
+                    - name
+                    - author
+                    - description
+            edit:
+                fields:
+                    - name
+                    - author
+                    - description
+            new:
+                fields:
+                    - name
+                    - author
+                    - description
+

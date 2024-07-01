@@ -37,3 +37,27 @@ services:
         arguments:
             $mailer: '@mailer'
             $testEmail: '%env(TEST_EMAIL)%'
+
+    App\Application\Command\CommandBus:
+        public: true
+        calls:
+            - method: registerHandler
+              arguments:
+                - App\Application\Command\ListBooksCommand
+                - '@App\Application\Command\Handler\ListBooksHandler'
+
+    App\Application\Query\QueryBus:
+        public: true
+        calls:
+            - method: registerHandler
+              arguments:
+                - App\Application\Query\GetBookByIdQuery
+                - '@App\Application\Query\Handler\GetBookByIdHandler'
+
+    App\Application\Command\Handler\ListBooksHandler:
+        arguments:
+            - '@App\Domain\Repository\BookRepositoryInterface'
+
+    App\Application\Query\Handler\GetBookByIdHandler:
+        arguments:
+            - '@App\Domain\Repository\BookRepositoryInterface'

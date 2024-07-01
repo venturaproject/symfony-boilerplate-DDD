@@ -3,7 +3,7 @@ services:
         container_name: db
         image: mysql:latest
         volumes:
-             - db_data:/var/lib/mysql
+            - ../.docker/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}

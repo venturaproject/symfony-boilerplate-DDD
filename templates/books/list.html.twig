@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books List{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Books List</h1>
+        <ul class="grid grid-cols-2 gap-4">
+            {% for book in books %}
+                <li class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <a href="{{ path('books_get', {bookId: book.id}) }}" class="block p-4 hover:bg-gray-100 transition duration-300">
+                        <h2 class="text-lg font-semibold">{{ book.name }}</h2>
+                        <p class="text-sm text-gray-600 mt-1">{{ book.description }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
