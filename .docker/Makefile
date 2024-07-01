@@ -22,3 +22,6 @@ clear-cache:
 
 info-commands:
 	@docker exec -it $(PHP_CONTAINER) php bin/console list
+
+phpstan:
+	@docker exec -it $(PHP_CONTAINER) php ./vendor/bin/phpstan analyze

@@ -1,0 +1,18 @@
+default:
+    suites:
+        technight:
+            contexts:
+                - App\Tests\Behat\DemoContext
+                - Behat\MinkExtension\Context\MinkContext
+
+    extensions:
+        Behat\MinkExtension:
+            base_url: http://localhost
+            sessions:
+                default:
+                    symfony: ~
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: App\Kernel
+                environment: test
+                debug: true

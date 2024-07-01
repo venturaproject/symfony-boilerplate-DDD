@@ -1,13 +1,14 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^3.3",
+        "behat/mink-extension": "*",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
@@ -86,8 +87,14 @@
             "require": "7.1.*"
         }
     },
-    "require-dev": {
+   "require-dev": {
+        "behat/behat": "^3.14",
+        "behat/mink-browserkit-driver": "^2.2",
         "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "friends-of-behat/mink-extension": "^2.7",
+        "friends-of-behat/symfony-extension": "^2.5",
+        "friendsofphp/php-cs-fixer": "^3.59",
+        "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.1.*",
         "symfony/css-selector": "7.1.*",

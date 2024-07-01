@@ -36,12 +36,18 @@ class BooksController extends AbstractController
     #[Route('/books/{bookId}', name: 'books_get', requirements: ['bookId' => '\d+'])]
     public function getBookById(string $bookId): Response
     {
-        $query = new GetBookByIdQuery($bookId);
-        $book = $this->queryBus->handle($query);
+        try {
+            $query = new GetBookByIdQuery($bookId);
+            $book = $this->queryBus->handle($query);
 
-        return $this->render('books/detail.html.twig', [
-            'book' => $book,
-        ]);
+            return $this->render('books/detail.html.twig', [
+                'book' => $book,
+            ]);
+        } catch (\Exception $e) {
+            // Manejo del error cuando no se encuentra el libro
+            return $this->render('error/not_found.html.twig', [
+                'message' => 'Book not found',
+            ]);
+        }
     }
 }
-
