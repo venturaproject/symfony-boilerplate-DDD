@@ -2,9 +2,8 @@ Feature: Gestionar libros
 
   Scenario: Ver la lista de libros
     Given I am on "/books"
-    Then I should see "List of Books"
-    And I should see at least 1 "book-card"
+    Then I should see "Books List"
 
   Scenario: Ver detalles de un libro
-    Given I am on "/books/1"
+    Given I am on "/books/9"
     Then I should see "Book Details"

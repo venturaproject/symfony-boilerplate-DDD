@@ -3,7 +3,6 @@ default:
         technight:
             contexts:
                 - App\Tests\Behat\DemoContext
-                - Behat\MinkExtension\Context\MinkContext
 
     extensions:
         Behat\MinkExtension:

@@ -5,29 +5,18 @@ namespace App\Tests\Behat;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
 
-class DemoContext implements Context
+class DemoContext extends MinkContext implements Context
 {
-    private $minkContext;
-
-    public function __construct(MinkContext $minkContext)
-    {
-        $this->minkContext = $minkContext;
-    }
-
     /**
      * @Given I visit :path
      */
     public function iVisitPath($path)
     {
-        $this->minkContext->visit($this->minkContext->locatePath($path));
-    }
-
-    /**
-     * @Then I should see the text :text
-     */
-    public function iShouldSeeTheText($text)
-    {
-        $this->minkContext->assertPageContainsText($text);
+        $this->visit($path);
+        $statusCode = $this->getSession()->getStatusCode();
+        if ($statusCode !== 200) {
+            throw new \Exception(sprintf('Expected status code 200, but got %d', $statusCode));
+        }
     }
 
     /**
@@ -35,6 +24,24 @@ class DemoContext implements Context
      */
     public function iShouldSeeAtLeastCountElements($count, $element)
     {
-        // Implementación para verificar la presencia de al menos ciertos elementos en la página
+        $elements = $this->getSession()->getPage()->findAll('css', '.' . $element);
+        if (count($elements) < $count) {
+            // Imprimir el HTML de la página para depuración
+            echo $this->getSession()->getPage()->getContent();
+            throw new \Exception(sprintf('Expected at least %d "%s" elements, but found %d', $count, $element, count($elements)));
+        }
+    }
+
+    /**
+     * @Then I should see the text :text
+     */
+    public function iShouldSeeTheText($text)
+    {
+        $pageContent = $this->getSession()->getPage()->getText();
+        if (strpos($pageContent, $text) === false) {
+            // Imprimir el HTML de la página para depuración
+            echo $this->getSession()->getPage()->getContent();
+            throw new \Exception(sprintf('The text "%s" was not found on the page.', $text));
+        }
     }
 }
