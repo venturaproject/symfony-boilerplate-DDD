@@ -1,6 +1,6 @@
 
 ###> symfony/framework-bundle ###
-/.docker/mysql/
+.docker/mysql/
 /.env.local
 /.env.local.php
 /.env.*.local
